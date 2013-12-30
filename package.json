@@ -1,0 +1,24 @@
+{
+  "name": "lighapi",
+  "author": "Loïc Blablaa",
+  "version": "0.1.0",
+  "description": "A simple web framework for Node.JS",
+  "main": "./lib/index",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "express": "3.4.7",
+    "colors": "0.6.2",
+    "lodash": "2.4.1",
+    "ejs": "0.8.5",
+    "async": "0.2.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gamer204/lightapi.git"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  }
+}
