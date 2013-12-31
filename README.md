@@ -38,7 +38,7 @@ Quick start
     "/:name": "IndexController:index"
   }
 ```
-* Create an `app.js` node module in the main folder and simply add that following line : `require('lightapi');̀
+* Create an `app.js` node module in the main folder and simply add that following line : `require('lightapi');`
 
 * Launch the app : `node app` and go to http://localhost:1337/World and magic will happend !
 
