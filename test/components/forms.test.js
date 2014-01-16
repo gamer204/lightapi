@@ -11,14 +11,13 @@ var schema = {
 	}
 }
 
-if(typeof la !== undefined)
-	before(function(done) {
-		require(laDir)(function(){
-			Form = la.forms.Form;
-			createForm = la.forms.createForm;
-			done();
-		});
+before(function(done) {
+	require(laDir)(function(){
+		Form = la.forms.Form;
+		createForm = la.forms.createForm;
+		done();
 	});
+});
 
 describe("Components", function(){
 
