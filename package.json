@@ -1,7 +1,7 @@
 {
-  "name": "lighapi",
+  "name": "lightapi",
   "author": "Loïc Blablaa",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A simple web framework for Node.JS",
   "main": "./lib/index",
   "directories": {
