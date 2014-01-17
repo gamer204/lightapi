@@ -16,4 +16,4 @@ deploy:
 services: mongodb
 
 before_script:
-  -mysql -e 'create database tests;'
+  - mysql -e 'create database tests;'
