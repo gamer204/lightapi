@@ -22,7 +22,12 @@ describe("Components", function(){
 			ORM.should.have.property("User");
 		});
 
-		it('should manage transactions');
+		it('should manage transactions', function(done){
+			ORM.transaction(function(t){
+				t.should.be.an.Object;
+				done();
+			})
+		});
 
 	});
 
