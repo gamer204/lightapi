@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+  - "0.11"
+  - "0.10"
+  - "0.8"
+  - "0.6"
+
+notifications:
+  email: false
+
+deploy:
+  provider: npm
+  email: gamer204@æmail.com
+  api_key: ksMSTfSbpsC2uGG2Vzsc
+  on: 
+  	tags: true
+  	branch: master
