@@ -42,5 +42,5 @@ Quick start
 
 * Launch the app : `node app` and go to http://localhost:1337/World and magic will happend !
 
-Documentation will be completed later, the roadmap a little bit before ;)
+Documentation will be completed later, the roadmap a little bit before.
 For some examples of app build using Light API, see [this repo](https://github.com/palra/lightapi-sample-app), and have a look at the differents branches.
