@@ -31,7 +31,7 @@ Quick start
 ```
   Hello <%= name %> !
 ```
-* Finally, in the `config` folder, add a `router.js` node module, which will define the routing of your application. The system is pretty much like Sails.js router (see http://sailsjs.org/#!documentation/routes), withour resourseful routing.
+* Finally, in the `config` folder, add a `router.js` node module, which will define the routing of your application. The system is pretty much like Sails.js router (see http://sailsjs.org/#!documentation/routes), without resourseful routing.
 
 ```javascript
   module.exports = {
