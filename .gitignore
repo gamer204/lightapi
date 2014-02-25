@@ -16,3 +16,5 @@ node_modules
 /.project
 
 test/app/config/local.js
+
+us.stackdump
