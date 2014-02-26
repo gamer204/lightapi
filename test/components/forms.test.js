@@ -66,41 +66,7 @@ describe("Components", function(){
 			form.values.message.should.match(/>|</);
 		});
 
-		it('should validate values, or not', function(){
-			var form = new Form(schema);
-
-			// 1st pass : should validate sucessfully
-
-			form.bind({
-				title: "Dat super title",
-				message: "Dat super enough long message, wow."
-			});
-
-			form.valid.should.be.exactly(true);
-
-			// 2nd pass : shouldn't validate and return error object
-
-			form.bind({
-				title: "Tiny",
-				message: "Perfect message again, that's amazing !"
-			});
-
-			form.valid.should.be.exactly(false);
-
-			form.err.should.have.property("title").with.a.property("assert").eql("isLength");
-			form.err.should.have.property("title").with.a.property("parameters").eql([10, 254]);
-
-			form.bind({
-				title: "Loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong title",
-				message: "Perfect message again, that's amazing !"
-			});
-
-			form.valid.should.be.exactly(false);
-
-			form.err.should.have.property("title").with.a.property("assert").eql("isLength");
-			form.err.should.have.property("title").with.a.property("parameters").eql([10, 254]);
-
-		});
+		it('should validate values, or not');
 
 	});
 

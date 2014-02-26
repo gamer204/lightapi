@@ -12,11 +12,114 @@ describe("Components", function(){
 
 	describe("#validator", function(){
 
-		it("should validate objects");
+		var schema, candidate;
 
-		it("should sanitize objects");
+		beforeEach(function () {
+			candidate = {
+				name: "   françois le Français       	",
+				age: 21,
+				gender: "m",
+				compagnies: ["malea", "pantera"],
+				birthday: new Date()
+			};
 
-		it("should do both validate and sanitize");
+			schema = {};
+			schema.sanitize = {
+				name: {
+					type: "string",
+					rules: ["trim", "title"],
+				},
+				age: {
+					type: "integer"
+				},
+				compagnies: {
+					type: "array",
+					items: {
+						type: "string",
+						rules: ["trim", "ucfirst"]
+					}
+				},
+				gender: {
+					type: "string",
+					optional: false,
+					def: "m"
+				},
+				birthday: {
+					type: "date"
+				}
+			};
+
+			schema.validation = {
+				name: {
+					type: "string",
+					minLength: 1
+				},
+				age: {
+					type: "integer",
+					gt: 0,
+					lte: 120
+				},
+				gender: {
+					type: "string",
+					eq: ["m", "f"]
+				},
+				compagnies: {
+					type: "array",
+					items: {
+						type: "string",
+						minLength: 1
+					}
+				},
+				birthday: {
+					type: "date"
+				}
+			};
+		});
+
+		it("should validate objects", function () {
+			delete schema.sanitize;
+
+			var result = la.validator(schema, candidate);
+			result.value.should.be.eql(candidate);
+
+			delete candidate.age;
+			result = la.validator(schema, candidate);
+			result.error.should.have.property("error").with.be.an.Array.and.have.lengthOf(1);
+
+		});
+
+		it("should sanitize objects", function () {
+			delete schema.validation;
+
+			var result = la.validator(schema, candidate);
+			result.value.should.not.be.eql(candidate);
+			result.value.name.should.be.eql("François Le Français");
+			result.error.should.be.eql({});
+
+			delete candidate.age;
+			result = la.validator(schema, candidate);
+			result.error.should.be.eql({});
+
+		});
+
+		it("should do both validate and sanitize", function () {
+			var result = la.validator(schema, candidate);
+			result.value.should.not.be.eql(candidate);
+			result.value.name.should.be.eql("François Le Français");
+			result.error.should.have.keys("error", "valid", "format");
+
+			delete candidate.age;
+			result = la.validator(schema, candidate);
+			result.error.should.have.property("error").with.be.an.Array;
+
+		});
+
+		it("should throw an error if the schema has a bad syntax", function() {
+			(function(){
+				var result = la.validator({type: "object", properties: {bla: "blah"}}, candidate);
+			}).should.throw("Invalid schema syntax.");
+
+		});
 
 	});
 
