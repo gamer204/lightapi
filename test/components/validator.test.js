@@ -94,11 +94,11 @@ describe("Components", function(){
 			var result = la.validator(schema, candidate);
 			result.values.should.not.be.eql(candidate);
 			result.values.name.should.be.eql("François Le Français");
-			result.error.should.be.eql({});
+			result.error.valid.should.be.true;
 
 			delete candidate.age;
 			result = la.validator(schema, candidate);
-			result.error.should.be.eql({});
+			result.error.valid.should.be.true;
 
 		});
 

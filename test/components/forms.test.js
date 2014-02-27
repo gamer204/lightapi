@@ -1,6 +1,5 @@
-var Form, createForm;
-
-var schema = {
+var Form,
+	schema = {
 	validation: {
 		title: {
 			type: "string",
@@ -27,7 +26,6 @@ var schema = {
 before(function(done) {
 	require(laDir)(function(){
 		Form = la.forms.Form;
-		createForm = la.forms.createForm;
 		done();
 	});
 });
@@ -76,7 +74,15 @@ describe("Components", function(){
 			form.values.message.should.match(/>|</);
 		});
 
-		it('should validate values, or not');
+		it('should validate values, or not', function() {
+			var form = new Form(schema);
+			var req = {
+				title: "   the title.",
+				message: "A loooooooooooooooooooong message"
+			};
+
+			form.bind(req).valid.should.be.true;
+		});
 
 	});
 
