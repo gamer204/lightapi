@@ -2,5 +2,4 @@
 --reporter spec
 --ui bdd
 --require test/globalHooks
---watch
 test/**/*.test.js

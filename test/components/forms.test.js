@@ -1,13 +1,26 @@
 var Form, createForm;
 
 var schema = {
-	title: {
-		"!isNull": null,
-		isLength: [10, 254]
+	validation: {
+		title: {
+			type: "string",
+			minLength: 10,
+			maxLength: 254,
+		},
+		message:{
+			type: "string",
+			minLength: 30,
+		}
 	},
-	message: {
-		"!isNull": null,
-		isLength: 30
+	sanitize: {
+		title: {
+			type: "string",
+			rules: ['trim', 'title']
+		},
+		message:{
+			type: "string",
+			rules: ["ucfirst"]
+		}
 	}
 }
 
@@ -35,17 +48,15 @@ describe("Components", function(){
 			(function(){
 				var form = new Form();
 				form.bind({some: "useless data"});
+
+				form = new Form();
+				form.validate();
 			}).should.throw("No schema provided");
 
 			(function(){
 				var form = new Form(schema);
 				form.validate();
 			}).should.throw("No values provided");
-
-			(function(){
-				var form = new Form();
-				form.validate();
-			}).should.throw("No schema provided");
 		});
 
 		it('should copy object and sanitize them (or not) by the `bind` method', function(){
@@ -57,7 +68,6 @@ describe("Components", function(){
 
 			form.bind(req);
 
-			form.values.title.should.be.exactly(req.title);
 			form.values.message.should.not.match(/>|</);
 
 			la.config.security.xss = false;

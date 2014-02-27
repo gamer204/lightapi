@@ -80,7 +80,7 @@ describe("Components", function(){
 			delete schema.sanitize;
 
 			var result = la.validator(schema, candidate);
-			result.value.should.be.eql(candidate);
+			result.values.should.be.eql(candidate);
 
 			delete candidate.age;
 			result = la.validator(schema, candidate);
@@ -92,8 +92,8 @@ describe("Components", function(){
 			delete schema.validation;
 
 			var result = la.validator(schema, candidate);
-			result.value.should.not.be.eql(candidate);
-			result.value.name.should.be.eql("François Le Français");
+			result.values.should.not.be.eql(candidate);
+			result.values.name.should.be.eql("François Le Français");
 			result.error.should.be.eql({});
 
 			delete candidate.age;
@@ -104,8 +104,8 @@ describe("Components", function(){
 
 		it("should do both validate and sanitize", function () {
 			var result = la.validator(schema, candidate);
-			result.value.should.not.be.eql(candidate);
-			result.value.name.should.be.eql("François Le Français");
+			result.values.should.not.be.eql(candidate);
+			result.values.name.should.be.eql("François Le Français");
 			result.error.should.have.keys("error", "valid", "format");
 
 			delete candidate.age;
