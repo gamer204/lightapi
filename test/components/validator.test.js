@@ -1,5 +1,4 @@
-var validator, schema,
-	node_val = require("validator");
+var validator, schema;
 
 before(function(done) {
 	require(laDir)(function(){
