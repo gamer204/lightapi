@@ -44,6 +44,8 @@ describe("Components", function(){
 
 		});
 
+		it("should manage custom middlewares");
+
 	});
 
 });
