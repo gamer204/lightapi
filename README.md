@@ -4,7 +4,7 @@ Lightapi
 This is a simple web framework based on Express and inspired from Sails.js.
 Undex GPL v2 licence.
 
-[![Build Status](https://travis-ci.org/palra/lightapi.png?branch=master)](https://travis-ci.org/palra/lightapi) [![NPM version](https://badge.fury.io/js/lightapi.png)](http://badge.fury.io/js/lightapi) [![Dependency Status](https://gemnasium.com/palra/lightapi.png)](https://gemnasium.com/palra/lightapi)
+[![Build Status](https://travis-ci.org/palra/lightapi.png?branch=master)](https://travis-ci.org/palra/lightapi) [![NPM version](https://badge.fury.io/js/lightapi.png)](http://badge.fury.io/js/lightapi) [![Dependency Status](https://gemnasium.com/palra/lightapi.png)](https://gemnasium.com/palra/lightapi) [![Code Climate](https://codeclimate.com/github/palra/lightapi.png)](https://codeclimate.com/github/palra/lightapi)
 
 Quick start
 ----------
