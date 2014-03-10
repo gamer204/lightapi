@@ -44,6 +44,24 @@ describe("Components", function(){
 
 		});
 
+		it('should use locals vars', function (done) {
+			http.get("http://localhost:"+la.config.server.port+"/view", function(res){
+				var output = "";
+
+				res.on("data", function(chunk) {
+					output += chunk;
+				});
+
+				res.on("end", function(){
+					output.should.be.eql('<script src="nonExistingJsFile.js"></script>');
+					done();
+				});
+
+			});
+		});
+
+		it('should load AngularJS locals');
+
 		it("should manage custom middlewares");
 
 	});
