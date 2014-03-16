@@ -1,9 +1,3 @@
-before(function(done) {
-	require(laDir)(function(){
-		done();
-	});
-});
-
 var http = require("http");
 
 describe("Utils", function(){

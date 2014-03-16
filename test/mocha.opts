@@ -1,5 +1,6 @@
---timeout 5000
+--timeout 10000
 --reporter spec
 --ui bdd
---require test/globalHooks
+
+test/globalHooks.js
 test/**/*.test.js

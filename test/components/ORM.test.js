@@ -1,10 +1,7 @@
 var ORM;
 
-before(function(done) {
-	require(laDir)(function(){
-		ORM = la.ORM;
-		done();
-	});
+before(function() {
+	ORM = la.ORM;
 });
 
 describe("Components", function(){

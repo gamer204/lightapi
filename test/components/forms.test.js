@@ -23,11 +23,8 @@ var Form,
 	}
 }
 
-before(function(done) {
-	require(laDir)(function(){
-		Form = la.forms.Form;
-		done();
-	});
+before(function() {
+	Form = la.forms.Form;
 });
 
 describe("Components", function(){

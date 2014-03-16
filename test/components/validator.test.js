@@ -1,10 +1,7 @@
 var validator, schema;
 
-before(function(done) {
-	require(laDir)(function(){
-		validator = la.validator;
-		done();
-	});
+before(function() {
+	validator = la.validator;
 });
 
 describe("Components", function(){
