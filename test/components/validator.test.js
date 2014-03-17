@@ -1,7 +1,7 @@
 var validator, schema;
 
 before(function() {
-	validator = la.validator;
+	validator = la.components.validator;
 });
 
 describe("Components", function(){

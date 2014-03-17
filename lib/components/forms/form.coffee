@@ -1,7 +1,7 @@
 module.exports = (cb) -> 
 	class Form
-		self = this
 		constructor: (schema) ->
+			self = this
 			Object.defineProperty self, "schema",
 				value: schema
 				enumerable: true,
@@ -18,7 +18,7 @@ module.exports = (cb) ->
 			throw new Error("No schema provided")  unless @schema
 			throw new Error("No values provided")  unless @values
 
-			res = la.validator(@schema, @values)
+			res = la.components.validator(@schema, @values)
 			@values = res.value
 			@err = res.error
 			this

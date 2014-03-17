@@ -1,7 +1,7 @@
 var ORM;
 
 before(function() {
-	ORM = la.ORM;
+	ORM = la.components.ORM;
 });
 
 describe("Components", function(){

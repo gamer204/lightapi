@@ -24,7 +24,7 @@ var Form,
 }
 
 before(function() {
-	Form = la.forms.Form;
+	Form = la.components.forms.Form;
 });
 
 describe("Components", function(){

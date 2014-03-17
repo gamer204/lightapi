@@ -21,5 +21,5 @@ exports.component = (cb) ->
 				ret.error = inspect.validate(validation, ret.values)
 		else
 			throw new Error("Invalid schema syntax.")
-		return
+		ret
 	return

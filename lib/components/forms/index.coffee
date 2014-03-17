@@ -5,6 +5,7 @@ exports.component = (cb) ->
 			createForm require(__appdir + "/api/forms/" + schema)
 		createForm = (schema) ->
 			new Form(schema)
-		cb null, 
+		cb null,
+			Form: Form
 			getForm: getForm
 			createForm: createForm

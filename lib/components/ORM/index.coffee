@@ -1,7 +1,7 @@
 exports.component = (cb) ->
 	class ORM
-		self = this
 		constructor: (connection, models) ->
+			self = this
 			prop = (name, val) ->
 				Object.defineProperty self, name,
 					value: val
