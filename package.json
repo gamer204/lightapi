@@ -1,7 +1,7 @@
 {
   "name": "lightapi",
   "author": "Loïc Blablaa",
-  "version": "0.2.1",
+  "version": "0.4.0",
   "description": "A simple web framework for Node.JS",
   "main": "./lib/index",
   "directories": {
@@ -22,7 +22,8 @@
     "mysql": "2.0.0-rc2",
     "sandboxed-module": "0.3.0",
     "random-token": "0.0.3",
-    "require-all": "0.0.8"
+    "require-all": "0.0.8",
+    "coffee-script": "1.7.1"
   },
   "devDependencies": {
     "mocha": "1.17.0",
