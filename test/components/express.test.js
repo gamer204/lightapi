@@ -4,8 +4,8 @@ describe("Components", function(){
 
 	describe("#express", function(){
 
-		it('should start the server', function(done){
-			http.get("http://localhost:"+la.config.server.port+"/", function(res){
+		function get(uri, cb) {
+			http.get("http://localhost:"+la.config.server.port+uri, function(res){
 				var output = "";
 
 				res.on("data", function(chunk) {
@@ -13,44 +13,31 @@ describe("Components", function(){
 				});
 
 				res.on("end", function(){
-					output.should.be.eql("Hello world !");
-					done();
+					cb(output, res);
 				});
+			});
+		}
 
+		it('should start the server', function(done) {
+			get("/", function(output) {
+				output.should.be.eql("Hello world !");
+				done();
 			});
 
 		});
 
 		it('should manage sessions', function (done) {
-			http.get("http://localhost:"+la.config.server.port+"/", function(res){
-				var output = "";
-
-				res.on("data", function(chunk) {
-					output += chunk;
-				});
-
-				res.on("end", function(){
-					res.headers["set-cookie"][0].should.match(/lightapi.sid=/);
-					done();
-				});
-
+			get("/", function(output, res) {
+				res.headers["set-cookie"][0].should.match(/lightapi.sid=/);
+				done();
 			});
 
 		});
 
 		it('should use locals vars', function (done) {
-			http.get("http://localhost:"+la.config.server.port+"/view", function(res){
-				var output = "";
-
-				res.on("data", function(chunk) {
-					output += chunk;
-				});
-
-				res.on("end", function(){
-					output.should.be.eql('<script src="nonExistingJsFile.js"></script>');
-					done();
-				});
-
+			get("/view", function(output, res) {
+				output.should.be.eql('<script src="nonExistingJsFile.js"></script>');
+				done();
 			});
 		});
 

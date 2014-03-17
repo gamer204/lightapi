@@ -1,20 +1,19 @@
 module.exports = (obj, cb) ->
-	app = la.app
-	Controller = la.controllers.Controller
+	app = la.components.express
+	Controller = la.components.controllers.Controller
 	
 	unless not obj
 		try
 			log.silly "Trying to load " + obj.ctrl + "." + obj.method + " controller method ..."
-			mod = require(__appdir + "/api/controllers/" + obj.ctrl)
-			if mod[obj.method] isnt `undefined`
+			controller = require "#{__appdir}/api/controllers/#{obj.ctrl}"
+			if controller[obj.method] isnt `undefined`
 				app[obj.verb] obj.route, (req, res) ->
 					ctrl = new Controller(_.assign(
 						req: req
 						res: res
 					, obj))
-					mod[obj.method].apply ctrl, arguments_
+					controller[obj.method].apply ctrl, arguments
 					return
-
 				# Loads obj.method
 				log.silly obj.ctrl + "." + obj.method + " controller method loaded."
 				cb null, null

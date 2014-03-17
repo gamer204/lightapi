@@ -28,6 +28,7 @@ exports.component = (cb) ->
 	buildController = undefined
 	
 	cb null,
+		Controller: Controller
 		buildController: (data) ->
 			_.assign Controller::, data
 

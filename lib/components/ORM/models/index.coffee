@@ -12,10 +12,10 @@ module.exports = (sequelize, cb) ->
 				throw e
 			else
 				log.debug "No " + "/api/models".italic + " folder found."
-				return cb(output)
+				return cb null, output
 		if files.length is 0
 			log.silly "No models found."
-			return cb(output)
+			return cb null, output
 		log.silly "Loading models ..."
 		i = 0
 
