@@ -14,9 +14,19 @@ describe("Components", function(){
 			ORM.connection.options.port.should.be.eql("3306");
 		});
 
-		it('should load models', function() {
+		it('should load models', function(done) {
 			ORM.models.should.have.property("User");
 			ORM.should.have.property("User");
+
+			ORM.User.findOrCreate({
+				email: "gamlrfl@ggreg.gt",
+				password: "g2rg5gfd4",
+			}, { job: 'Technical Lead JavaScript' })
+				.success(function(user, created) {
+					user.values.should.have.properties("email", "password",
+						"active", "id", "createdAt", "updatedAt");
+					done();
+				})
 		});
 
 		it('should manage transactions', function(done){
