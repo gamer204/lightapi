@@ -3,7 +3,7 @@ exports.component = (cb) ->
 	app = express()
 	app.configure ->
 		unless la.config.local.secret
-			log.warn "No secret defined for the session, using a random generated session."
+			log.warn "No secret defined for the session, using a random secret."
 			la.config.local.secret = require("random-token")(32)
 		app.set "views", __appdir + "/api/views"
 		app.use express.static(__appdir + "/assets")
@@ -13,7 +13,13 @@ exports.component = (cb) ->
 			secret: la.config.local.secret or Math.random().toString(36)
 			key: "lightapi.sid"
 		)
-		app.use express.csrf()
+		if la.config.security.csrf
+			app.use express.csrf()
+			app.use (req, res, next) ->
+				res.locals.csrfToken = req.csrfToken()
+				res.cookie "csrfToken", req.csrfToken()
+				next()
+				return
 		return
 
 	require("./loadLocals") app
