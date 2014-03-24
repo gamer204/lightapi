@@ -14,12 +14,19 @@ exports.component = (cb) ->
 			key: "lightapi.sid"
 		)
 		if la.config.security.csrf
+			log.silly "CSRF security enabled"
 			app.use express.csrf()
 			app.use (req, res, next) ->
 				res.locals.csrfToken = req.csrfToken()
 				res.cookie "csrfToken", req.csrfToken()
 				next()
 				return
+		else
+			log.warn "CSRF protection is disabled !"
+			app.use (req, res, next) ->
+				res.locals.csrfToken = undefined
+				next()
+
 		return
 
 	require("./loadLocals") app
