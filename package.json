@@ -1,7 +1,7 @@
 {
   "name": "lightapi",
   "author": "Loïc Blablaa",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A simple web framework for Node.JS",
   "main": "./lib/index",
   "directories": {
@@ -27,8 +27,8 @@
     "ejs-locals": "1.0.2"
   },
   "devDependencies": {
-    "mocha": "1.17.0",
-    "should": "2.1.1",
+    "mocha": "1.18.0",
+    "should": "3.1.4",
     "request": "2.34.0"
   },
   "repository": {
