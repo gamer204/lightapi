@@ -81,6 +81,8 @@ describe("Components", function(){
 			form.bind(req).valid.should.be.true;
 		});
 
+		it('should use the form generator');
+
 	});
 
 });

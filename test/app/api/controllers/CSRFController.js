@@ -3,7 +3,6 @@ module.exports = {
 		res.render("token.ejs");
 	},
 	csrfForm: function (req, res) {
-		log.log(res.body);
 		res.send("validated");
 	}
 }

@@ -5,14 +5,21 @@ exports.component = (cb) ->
 		unless la.config.local.secret
 			log.warn "No secret defined for the session, using a random secret."
 			la.config.local.secret = require("random-token")(32)
+
+		app.engine "ejs", require "ejs-locals"
+
 		app.set "views", __appdir + "/api/views"
+		app.set "view engine", "ejs"
+
 		app.use express.static(__appdir + "/assets")
+
 		app.use express.bodyParser()
 		app.use express.cookieParser(la.config.local.secret)
 		app.use express.session(
 			secret: la.config.local.secret or Math.random().toString(36)
 			key: "lightapi.sid"
 		)
+		
 		if la.config.security.csrf
 			log.silly "CSRF security enabled"
 			app.use express.csrf()
