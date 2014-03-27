@@ -1,5 +1,3 @@
-var http = require("http");
-
 describe("Utils", function(){
 
 	describe("#function", function(){

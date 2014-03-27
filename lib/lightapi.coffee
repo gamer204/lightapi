@@ -50,6 +50,16 @@ class LightApi extends EventEmitter
 			cb(err);
 			return
 
+	close: (cb = () -> ) ->
+		self = this
+		arr = @listeners "close"
+		async.each arr, ((item, cb) -> item cb
+		), (err) ->
+			throw err if err
+			self.components = {}
+			log.warn "LightAPI is closed."
+			cb err
+
 
 global.la = new LightApi()
 module.exports = global.la

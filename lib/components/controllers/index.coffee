@@ -17,13 +17,6 @@ exports.component = (cb) ->
 	method "ORM", ORM
 	method "getModel", ORM.getModel
 	method "buildModel", ORM.buildModel
-	Object.defineProperty module.exports, "Controller",
-		get: ->
-			Controller
-
-		set: (val) ->
-			Controller = val  if typeof val is "function"
-			return
 
 	buildController = undefined
 	
