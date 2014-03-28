@@ -26,5 +26,5 @@ module.exports = (obj, cb) ->
 				throw new Error("Controller not found")
 			else
 				log.error e
-				throw new Error(e)
+				throw e
 	return
