@@ -1,6 +1,8 @@
 describe("Utils", function(){
 
-	var request = require("request"), baseUrl;
+	var request = require("request"),
+		baseUrl,
+		fs = require("fs");
 
 	describe("#core", function(){
 
@@ -18,12 +20,16 @@ describe("Utils", function(){
 					err.should.not.be.null;
 					err.code.should.be.eql('ECONNREFUSED');
 					la.components.should.be.eql({});
-					la.run(done);
+					la.run(function() {
+						done();
+					});
 				});
 			});	
 		});
 
-		it('should load user components');
+		it('should load user components', function () {
+			la.components.foo.bar.should.be.eql("baz");
+		});
 
 	});
 

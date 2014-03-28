@@ -17,20 +17,23 @@ class LightApi extends EventEmitter
 	run: (cb = () ->) ->
 		self = this
 		modules = {}
-		dirname = __dirname + "/components"
-		files = fs.readdirSync dirname
 
-		files.forEach (file) ->
-			filepath = dirname + "/" + file
-			if fs.statSync(filepath).isDirectory()
-				modules[file] = require filepath unless modules.hasOwnProperty(file)
-			return
+		loadDirMods = (dirname) ->
+			files = fs.readdirSync dirname
+			files.forEach (file) ->
+				filepath = dirname + "/" + file
+				if fs.statSync(filepath).isDirectory()
+					modules[file] = require filepath unless modules.hasOwnProperty(file)
+				return	
+
+		loadDirMods __dirname + "/components"
+		loadDirMods __appdir + "/components"
 
 		automap = _.transform modules, (res, val, key) ->
 			wrap = ($) ->
 				(cb) ->
 					$.component (err, mod) ->
-						self.register key, mod
+						self.components[key] = mod unless mod == null or mod == undefined
 						cb err, mod
 						return
 					return
@@ -46,6 +49,7 @@ class LightApi extends EventEmitter
 			
 		async.auto automap, (err, results) ->
 			throw err if err
+			self.emit "ready", self
 			log.info "Light API loaded"
 			cb(err);
 			return
@@ -57,7 +61,7 @@ class LightApi extends EventEmitter
 		), (err) ->
 			throw err if err
 			self.components = {}
-			log.warn "LightAPI is closed."
+			log.info "LightAPI is closed."
 			cb err
 
 
