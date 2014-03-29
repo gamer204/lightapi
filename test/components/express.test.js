@@ -42,6 +42,16 @@ describe("Components", function(){
 			});
 		});
 
+		it('should allow locals to access req and res', function (done) {
+			request({
+				url: baseUrl + "/local"
+			}, function(error, response, body) {
+				body.should.be.eql('Hello from the controller !');
+				done();
+			});
+			
+		});
+
 		it('should implement CSRF protection', function (done) {
 			request({
 				url: baseUrl + "/csrfToken",

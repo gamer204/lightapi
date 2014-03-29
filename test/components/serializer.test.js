@@ -13,8 +13,6 @@ describe("Components", function(){
 
 			var obj = {a: "b"};
 
-			log.log(ser.serialize(obj, "YAML"));
-
 			ser.parse(ser.serialize(obj, "YAML").should.be.eql('a: b\n').obj,
 				"YAML").should.be.eql(obj);
 		});

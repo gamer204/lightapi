@@ -8,7 +8,7 @@ exports.component = (cb) ->
 
 		app.engine "ejs", require "ejs-locals"
 
-		app.set "views", __appdir + "/api/views"
+		app.set "views", "#{__appdir}/api/views"
 		app.set "view engine", "ejs"
 
 		app.use express.static(__appdir + "/assets")
@@ -33,13 +33,28 @@ exports.component = (cb) ->
 			app.use (req, res, next) ->
 				res.locals.csrfToken = undefined
 				next()
+				return
 
 		return
 
-	_.merge app.locals, (la.config.locals or {})
+	_.forIn (la.config.locals or {}), fn = (val, key) ->
+		if typeof val == "object"
+			_.forIn val, fn
+		else if typeof val == "function"
+			params = la.utils.function.getParamNames(val).slice(0,2)
+			if params[0] == "req" and params[1] == "res"
+				app.use (req, res, next) ->
+					res.locals[key] = () ->
+						args = Array.prototype.slice.call arguments, 0
+						args.unshift req, res
+						val.apply this, args
+					next()
+					return
+			else
+				app.locals[key] = val
 	
 	server = app.listen la.config.server.port
-	log.info "Express started and listening to port " + la.config.server.port + " ..."
+	log.info "Express started and listening to port #{la.config.server.port} ..."
 
 	la.on "close", (cb) ->
 		server.close(cb)

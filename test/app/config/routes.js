@@ -5,4 +5,6 @@ module.exports = {
 	"POST /csrfForm": "CSRFController:csrfForm",
 
 	"GET /hello": "IndexController:layout",
+
+	"/local": "IndexController:local"
 };

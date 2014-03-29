@@ -7,5 +7,9 @@ module.exports = {
 	},
 	layout: function(req, res) {
 		res.render("layout.ejs", {who: req.query.who});
+	},
+	local: function(req, res) {
+		res.greeter = "Hello from the controller !";
+		res.render("local.ejs");
 	}
 }
