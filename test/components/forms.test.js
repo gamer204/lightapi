@@ -81,7 +81,25 @@ describe("Components", function(){
 			form.bind(req).valid.should.be.true;
 		});
 
-		it('should use the form generator');
+		it('should use the form generator', function () {
+			var locals = la.components.express.locals;
+
+			var form = new Form(schema);
+			form.path = "/fake/path";
+			form.csrf = "fakeCsrf";
+			var req = {
+				title: "The title.",
+				message: "Unsecure <strong>string</strong>"
+			};
+
+			form.bind(req);
+
+			var ret = locals.form(form)
+			+ locals.form_row("title")
+			+ locals.endform(form);
+
+			ret.should.be.eql('<form action=\"/fake/path\"/><input type=\"text\" name=\"title\"/><input type=\"hidden\" name=\"_csrf\" value=\"fakeCsrf\"/></form>');
+		});
 
 	});
 

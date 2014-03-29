@@ -9,11 +9,17 @@ module.exports = (cb) ->
 				writable: false
 
 		bind: (req) ->
+			self = this
 			throw new Error("No schema provided")  unless @schema
-			@values = _.assign({}, req, (key, val) ->
-				(if (la.config.security.xss) then _.escape(val) else val)
-			)
+
+			@values = _.mapValues req, (val, key) ->
+				if (la.config.security.xss) then val = _.escape(val) else val
+
+			@csrf = req.csrfToken() if la.config.security.csrf and req.csrfToken
+			@path = req.path if req.path
+
 			this
+
 		validate: () ->
 			throw new Error("No schema provided")  unless @schema
 			throw new Error("No values provided")  unless @values
@@ -22,6 +28,7 @@ module.exports = (cb) ->
 			@values = res.value
 			@err = res.error
 			this
+
 		Object.defineProperty Form::, "valid",
 		get: () ->
 			this.validate()

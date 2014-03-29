@@ -36,7 +36,8 @@ exports.component = (cb) ->
 
 		return
 
-	require("./loadLocals") app
+	_.merge app.locals, (la.config.locals or {})
+	
 	server = app.listen la.config.server.port
 	log.info "Express started and listening to port " + la.config.server.port + " ..."
 
