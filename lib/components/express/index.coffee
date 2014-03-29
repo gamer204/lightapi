@@ -37,21 +37,26 @@ exports.component = (cb) ->
 
 		return
 
-	_.forIn (la.config.locals or {}), fn = (val, key) ->
-		if typeof val == "object"
-			_.forIn val, fn
-		else if typeof val == "function"
-			params = la.utils.function.getParamNames(val).slice(0,2)
-			if params[0] == "req" and params[1] == "res"
-				app.use (req, res, next) ->
-					res.locals[key] = () ->
-						args = Array.prototype.slice.call arguments, 0
-						args.unshift req, res
-						val.apply this, args
-					next()
-					return
-			else
-				app.locals[key] = val
+	addLocal = (obj) ->
+		_.forIn obj, fn = (val, key) ->
+			if typeof val == "object"
+				_.forIn val, fn
+			else if typeof val == "function"
+				params = la.utils.function.getParamNames(val).slice(0,2)
+				if params[0] == "req" and params[1] == "res"
+					app.use (req, res, next) ->
+						res.locals[key] = () ->
+							args = Array.prototype.slice.call arguments, 0
+							args.unshift req, res
+							val.apply this, args
+						next()
+						return
+				else
+					app.locals[key] = val
+
+	addLocal la.config.locals or {}
+
+	app.addLocal = addLocal
 	
 	server = app.listen la.config.server.port
 	log.info "Express started and listening to port #{la.config.server.port} ..."

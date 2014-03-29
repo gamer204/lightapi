@@ -5,7 +5,12 @@ exports.component = (cb) ->
 			createForm require(__appdir + "/api/forms/" + schema)
 		createForm = (schema) ->
 			new Form(schema)
+
+		la.components.express.addLocal require "./locals"
+
 		cb null,
 			Form: Form
 			getForm: getForm
 			createForm: createForm
+
+exports.dependencies = ["express"]
