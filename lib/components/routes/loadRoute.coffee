@@ -4,7 +4,6 @@ module.exports = (obj, cb) ->
 	
 	unless not obj
 		try
-			log.silly "Trying to load " + obj.ctrl + "." + obj.method + " controller method ..."
 			controller = require "#{__appdir}#{la.config.paths.controllers}/#{obj.ctrl}"
 			if controller[obj.method] isnt `undefined`
 				app[obj.verb] obj.route, (req, res) ->
@@ -15,7 +14,6 @@ module.exports = (obj, cb) ->
 					controller[obj.method].apply ctrl, arguments
 					return
 				# Loads obj.method
-				log.silly obj.ctrl + "." + obj.method + " controller method loaded."
 				cb null, null
 			else
 				log.error obj.method + " method of " + obj.ctrl + " controller not found. Stopping server."

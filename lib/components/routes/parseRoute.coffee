@@ -15,7 +15,7 @@ module.exports = parseRoute = (route, routes) ->
 			"put"
 			"delete"
 		], ((route.match(/GET|POST|PUT|DELETE/i) or [""])[0]).toLowerCase())
-		route = route.match(/\/:?[a-zA-Z0-9\/]*$/)[0]
+		route = route.match(/\/.*:*.*/)[0]
 	
 	# Using "GET" if no verb is indicated ONLY IF routes[route] is a string, see line 2;
 	else if typeof routes[route] is "object"
