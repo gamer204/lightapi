@@ -5,7 +5,7 @@ module.exports = (obj, cb) ->
 	unless not obj
 		try
 			log.silly "Trying to load " + obj.ctrl + "." + obj.method + " controller method ..."
-			controller = require "#{__appdir}/api/controllers/#{obj.ctrl}"
+			controller = require "#{__appdir}#{la.config.paths.controllers}/#{obj.ctrl}"
 			if controller[obj.method] isnt `undefined`
 				app[obj.verb] obj.route, (req, res) ->
 					ctrl = new Controller(_.assign(

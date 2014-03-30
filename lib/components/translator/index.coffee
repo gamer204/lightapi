@@ -5,7 +5,7 @@ fs = require "fs"
 exports.component = (cb) ->
 	pool = {}
 
-	dirname = "#{__appdir}/api/translations"
+	dirname = "#{__appdir}#{la.config.paths.translations}"
 
 	try
 		files = fs.readdirSync dirname

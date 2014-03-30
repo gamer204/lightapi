@@ -8,10 +8,10 @@ exports.component = (cb) ->
 
 		app.engine "ejs", require "ejs-locals"
 
-		app.set "views", "#{__appdir}/api/views"
+		app.set "views", __appdir + la.config.paths.views
 		app.set "view engine", "ejs"
 
-		app.use express.static(__appdir + "/assets")
+		app.use express.static(__appdir + la.config.paths.assets)
 
 		app.use express.bodyParser()
 		app.use express.cookieParser(la.config.local.secret)

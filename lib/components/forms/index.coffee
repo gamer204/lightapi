@@ -2,7 +2,7 @@ exports.component = (cb) ->
 	require("./form") (err, Form) ->
 		getForm = (schema) ->
 			throw new Error("No form name provided.") unless schema
-			createForm require(__appdir + "/api/forms/" + schema)
+			createForm require(__appdir + la.config.paths.forms + schema)
 		createForm = (schema) ->
 			new Form(schema)
 

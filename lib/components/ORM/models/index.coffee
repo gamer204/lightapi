@@ -6,12 +6,12 @@ module.exports = (sequelize, cb) ->
 		output = {}
 		files = undefined
 		try
-			files = fs.readdirSync(__appdir + "/api/models")
+			files = fs.readdirSync(__appdir + la.config.paths.models)
 		catch e
 			unless e.code is "ENOENT"
 				throw e
 			else
-				log.debug "No " + "/api/models".italic + " folder found."
+				log.debug "No #{la.config.paths.models} folder found."
 				return cb null, output
 		if files.length is 0
 			log.silly "No models found."
@@ -21,7 +21,7 @@ module.exports = (sequelize, cb) ->
 
 		while i < files.length
 			file = files[i].slice(0, -3)
-			output[file] = require("sandboxed-module").require(__appdir + "/api/models/" + file,
+			output[file] = require("sandboxed-module").require("#{__appdir}#{la.config.paths.models}/#{file}",
 				globals:
 					Sequelize: types
 			)
@@ -36,7 +36,7 @@ module.exports = (sequelize, cb) ->
 			log.silly name + " model loaded."
 		try
 			log.silly "Setting up associations ..."
-			require("sandboxed-module").require __appdir + "/api/models/associations",
+			require("sandboxed-module").require __appdir + "#{la.config.paths.models}/associations",
 				globals: _.merge(output,
 					Sequelize: types
 					sequelize: sequelize
