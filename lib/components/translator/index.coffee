@@ -25,7 +25,10 @@ exports.component = (cb) ->
 					)(ext[2])
 	catch e
 		throw e unless e.code == "ENOENT"
-	
+
+	# Express configuration
+
+	require("./express") la.components.express
 
 	cb null,
 		pool: pool
@@ -34,13 +37,13 @@ exports.component = (cb) ->
 
 			translated = pool[lang]
 
-			return "" if translated == undefined
+			return keys if translated == undefined
 
 			for key in keys
 				translated = translated[key]
-				return "" if translated == undefined
+				return keys if translated == undefined
 
 			_.templateSettings = interpolate: /{{([\s\S]+?)}}/g		
 
-			return if typeof translated == "object" then "" else
+			return if typeof translated == "object" then keys else
 				_.template translated, params

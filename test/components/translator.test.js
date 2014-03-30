@@ -2,10 +2,11 @@ describe("Components", function(){
 
 	describe("#translator", function(){
 
-		var trans;
+		var trans, request = require("request"), baseUrl;
 
 		before(function(){
 			trans = la.components.translator;
+			baseUrl = "http://localhost:"+ la.config.server.port || 80;
 		});
 
 		it('should translate strings according to a given key', function(){
@@ -22,7 +23,15 @@ describe("Components", function(){
 
 		it('should manage pluralization');
 
-		it('should translate strings from templates');
+		it('should translate strings from templates', function(done) {
+
+			request({
+				url: baseUrl + "/translate/Brian",
+			}, function(error, response, body) {
+				log.log(body);
+				done();
+			});
+		});
 
 	});
 

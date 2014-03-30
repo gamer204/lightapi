@@ -11,5 +11,8 @@ module.exports = {
 	local: function(req, res) {
 		res.greeter = "Hello from the controller !";
 		res.render("local.ejs");
+	},
+	translate: function(req, res) {
+		res.render("translate.ejs", {name: req.query.name || "Jean"});
 	}
 }
