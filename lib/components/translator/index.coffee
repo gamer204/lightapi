@@ -40,7 +40,7 @@ exports.component = (cb) ->
 				translated = translated[key]
 				return "" if translated == undefined
 
-			_.templateSettings = { 'interpolate': /{{([\s\S]+?)}}/g };				
+			_.templateSettings = interpolate: /{{([\s\S]+?)}}/g		
 
 			return if typeof translated == "object" then "" else
 				_.template translated, params

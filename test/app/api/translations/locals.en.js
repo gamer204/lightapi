@@ -1,3 +1,4 @@
 module.exports = {
-	foo: "baz"
+	foo: "baz",
+	name: "My name is {{ name }}"
 }

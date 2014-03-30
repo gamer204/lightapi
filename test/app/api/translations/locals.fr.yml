@@ -1,1 +1,2 @@
 foo: bar
+name: Je m'appelle {{ name }}
