@@ -1,10 +1,15 @@
-Lightapi
-========
+Light API
+=========
+
+![Light API Logo](http://cvlp.eu01.aws.af.cm/images/lightapi.png)
+
 
 This is a simple web framework based on Express and inspired from Sails.js.
-Undex GPL v2 licence.
+Under GPL v2 licence.
 
 [![Build Status](https://travis-ci.org/palra/lightapi.png?branch=master)](https://travis-ci.org/palra/lightapi) [![NPM version](https://badge.fury.io/js/lightapi.png)](http://badge.fury.io/js/lightapi) [![Dependency Status](https://gemnasium.com/palra/lightapi.png)](https://gemnasium.com/palra/lightapi) [![Code Climate](https://codeclimate.com/github/palra/lightapi.png)](https://codeclimate.com/github/palra/lightapi)
+
+It uses [Sequelize](https://github.com/sequelize/sequelize) as ORM and [Schema Inspector](https://github.com/Atinux/schema-inspector) for data validation/sanitition. As it is based on ExpressJS, controllers are compatible with Connect middleware system, so migration from an ExpressJS project to Light API is quite simple.
 
 Quick start
 ----------
