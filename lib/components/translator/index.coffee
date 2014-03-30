@@ -29,7 +29,7 @@ exports.component = (cb) ->
 
 	cb null,
 		pool: pool
-		translate: (keys, lang) ->
+		translate: (keys, lang, params = {}) ->
 			keys = keys.split(".")
 
 			translated = pool[lang]
@@ -40,4 +40,7 @@ exports.component = (cb) ->
 				translated = translated[key]
 				return "" if translated == undefined
 
-			return if typeof translated == "object" then "" else translated
+			_.templateSettings = { 'interpolate': /{{([\s\S]+?)}}/g };				
+
+			return if typeof translated == "object" then "" else
+				_.template translated, params
