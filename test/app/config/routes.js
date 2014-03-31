@@ -7,5 +7,5 @@ module.exports = {
 	"GET /hello": "IndexController:layout",
 
 	"/local": "IndexController:local",
-	"/translate/:name": "IndexController:translate"
+	"/translate": "IndexController:translate"
 };

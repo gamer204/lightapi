@@ -24,13 +24,24 @@ describe("Components", function(){
 		it('should manage pluralization');
 
 		it('should translate strings from templates', function(done) {
-
-			request({
-				url: baseUrl + "/translate/Brian",
-			}, function(error, response, body) {
-				log.log(body);
-				done();
-			});
+			async.parallel([
+				function(cb) {
+					request({
+						url: baseUrl + "/translate?name=Brian",
+					}, function(error, response, body) {
+						body.should.be.eql("My name is Brian");
+						cb();
+					});					
+				},
+				function(cb) {
+					request({
+						url: baseUrl + "/translate?name=Jean&lang=fr",
+					}, function(error, response, body) {
+						body.should.be.eql("Je m&#39;appelle Jean");
+						cb();
+					});					
+				},
+			], done)
 		});
 
 	});

@@ -33,17 +33,17 @@ exports.component = (cb) ->
 	cb null,
 		pool: pool
 		translate: (keys, lang, params = {}) ->
-			keys = keys.split(".")
+			arr = keys.split(".")
 
 			translated = pool[lang]
 
 			return keys if translated == undefined
 
-			for key in keys
+			for key in arr
 				translated = translated[key]
 				return keys if translated == undefined
 
-			_.templateSettings = interpolate: /{{([\s\S]+?)}}/g		
+			_.templateSettings = interpolate: /{{([\s\S]+?)}}/g
 
-			return if typeof translated == "object" then keys else
-				_.template translated, params
+
+			return if typeof translated == "object" then keys else	_.template translated, params
