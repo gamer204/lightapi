@@ -12,7 +12,7 @@ exports.component = (cb) ->
 		files.forEach (file) ->
 			ext = file.split(".")
 			if ["js", "json", "yml", "coffee"].indexOf(ext[2]) != -1
-				pool[ext[1]] = {}
+				pool[ext[1]] = {} if not pool[ext[1]]
 				_.merge pool[ext[1]][ext[0]] = (($) ->
 					parse = la.components.serializer.parse
 					switch $
