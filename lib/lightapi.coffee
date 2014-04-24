@@ -19,12 +19,17 @@ class LightApi extends EventEmitter
 		modules = {}
 
 		loadDirMods = (dirname) ->
-			files = fs.readdirSync dirname
-			files.forEach (file) ->
-				filepath = dirname + "/" + file
-				if fs.statSync(filepath).isDirectory()
-					modules[file] = require filepath unless modules.hasOwnProperty(file)
-				return	
+			files = null
+			try
+				files = fs.readdirSync dirname
+			catch e
+				throw e unless e.code == "ENOENT"
+			finally
+				files.forEach (file) ->
+					filepath = dirname + "/" + file
+					if fs.statSync(filepath).isDirectory()
+						modules[file] = require filepath unless modules.hasOwnProperty(file)
+
 
 		loadDirMods __dirname + "/components"
 		loadDirMods __appdir + "/components"
