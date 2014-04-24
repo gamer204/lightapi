@@ -94,11 +94,10 @@ describe("Components", function(){
 
 			form.bind(req);
 
-			var ret = locals.form(form)
-			+ locals.form_row("title")
-			+ locals.endform(form);
+			var ret = locals._form_start(form)
+			+ locals._form_end(form);
 
-			ret.should.be.eql('<form action=\"/fake/path\"/><input type=\"text\" name=\"title\"/><input type=\"hidden\" name=\"_csrf\" value=\"fakeCsrf\"/></form>');
+			ret.should.be.eql('<form action=\"/fake/path\" method=\"POST\"><input type=\"hidden\" name=\"_csrf\" value=\"fakeCsrf\" /></form>');
 		});
 
 	});

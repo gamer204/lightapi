@@ -26,8 +26,8 @@ module.exports = (cb) ->
 			this
 
 		validate: () ->
-			throw new Error("No schema provided")  unless @schema
-			throw new Error("No values provided")  unless @values
+			throw new Error("No schema provided") if _.isEmpty @schema
+			throw new Error("No values provided") if _.isEmpty @values
 
 			res = la.components.validator(@schema, @values)
 			@values = res.value
