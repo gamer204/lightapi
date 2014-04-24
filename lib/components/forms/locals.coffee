@@ -1,34 +1,30 @@
 builder = require("xmlbuilder")
 
-_attrs = (elem, attrs) ->
-	for prop, value of attrs
-		elem.att prop, value
+_attrs = (prefix, params, orphan = true, escape = false) ->
+	if(params._tagName)
+		prefix = params._tagName
+	str = "<#{prefix}"
+	_.forIn params, (val, key) ->
+		str += " #{key}=\"#{val}\"" # TODO : implement escaping
+
+	if(orphan) then str += " />" else str += ">"
+
+	str
 
 module.exports =
 	# Form utilities
 
-	form: form = (obj, attrs = {}) ->
-		root = builder.create "form"
+	_form_start: form = (obj, attrs = {}) ->
+		params = _.merge {action: obj.path, method: "POST"}, attrs
 
-		_attrs root, _.merge {action: obj.path}, attrs
+		_attrs "form", params, false
 
-		root.toString()
+	_form_row: form_row = (row, name, attrs = {}) ->
+		# TODO
 
-	form_row: form_row = (row, name, attrs = {}) ->
-		if typeof name == "object"
-			attrs = name
-			name = row
-		else if name == undefined
-			name = row
-
-		root = builder.create "input"
-
-		_attrs root, _.merge {type: "text", name:name}, attrs
-
-		root.toString()
-
-	endform: endform = (form) ->
+	_form_end: endform = (form) ->
 		ret = ""
 		if form.csrf
-			ret += "<input type=\"hidden\" name=\"_csrf\" value=\"#{form.csrf}\"/>"
+			ret += _attrs "input", {type: "hidden", name: "_csrf", value: form.csrf}
 		ret += "</form>"
+		ret

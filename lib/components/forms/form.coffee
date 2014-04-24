@@ -1,6 +1,6 @@
 module.exports = (cb) -> 
 	class Form
-		constructor: (schema) ->
+		constructor: (schema, req) ->
 			self = this
 			Object.defineProperty self, "schema",
 				value: schema
@@ -8,15 +8,20 @@ module.exports = (cb) ->
 				configurable: false,
 				writable: false
 
+			@values = {}
+
+			unless req is undefined
+				@csrf = req.csrfToken() if la.config.security.csrf and req.csrfToken
+				@path = req.path if req.path
+
 		bind: (req) ->
 			self = this
 			throw new Error("No schema provided")  unless @schema
 
-			@values = _.mapValues req, (val, key) ->
-				if (la.config.security.xss) then val = _.escape(val) else val
-
-			@csrf = req.csrfToken() if la.config.security.csrf and req.csrfToken
-			@path = req.path if req.path
+			_.forIn req, (val, key) ->
+				if (self.schema.validation.hasOwnProperty key) or (self.schema.sanitize.hasOwnProperty key)
+					if (la.config.security.xss) then self.values[key] = _.escape(val)
+					else self.values[key] = val
 
 			this
 
@@ -27,6 +32,7 @@ module.exports = (cb) ->
 			res = la.components.validator(@schema, @values)
 			@values = res.value
 			@err = res.error
+
 			this
 
 		Object.defineProperty Form::, "valid",
